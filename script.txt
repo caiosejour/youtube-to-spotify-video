@@ -1,0 +1,15 @@
+
+## Abrir Google Chrome em modo Debugging (assim é possível se conectar com o Puppeteer sem começar do zero toda vez);
+
+`/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir=$(mktemp -d -t 'chrome-remote_data_dir')`
+
+- Será gerado um endpoint web socket. Pegar este endpoint de usar no browserWSEndpoint do código, como abaixo:
+
+    `DevTools listening on ws://127.0.0.1:9222/devtools/browser/d985d522-79e6-420a-be1f-89392cd688c1`
+
+    `const browser = await puppeteer.connect({
+        browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser/d985d522-79e6-420a-be1f-89392cd688c1'
+    });`
+
+
+
