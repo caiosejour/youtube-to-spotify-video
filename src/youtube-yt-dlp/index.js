@@ -1,7 +1,7 @@
 const youtubedl = require('youtube-dl-exec');
 const progress = require('progress-estimator')()
 const env = require('../environment-variables');
-const { AUDIO_FILE_FORMAT, THUMBNAIL_FILE_FORMAT } = require('../environment-variables');
+const { THUMBNAIL_FILE_FORMAT } = require('../environment-variables');
 const { parseDate } = require('../dateutils');
 const { getLogger } = require('../logger');
 
@@ -32,10 +32,9 @@ function getDownloadThumbnailOptions() {
 function getDownloadAudioOptions() {
   const options = {
     ...youtubeDlOptions,
-    f: 'bestaudio',
-    x: true,
+    f: 'bestvideo[ext=mp4]+bestaudio[ext=m4a]',
+    mergeOutputFormat: 'mp4',
     forceOverwrites: true,
-    audioFormat: AUDIO_FILE_FORMAT,
     o: env.AUDIO_FILE_TEMPLATE,
   };
   if (env.POSTPROCESSOR_ARGS.length > 0) {
@@ -80,9 +79,9 @@ async function downloadThumbnail(videoId) {
 async function downloadAudio(videoId) {
   try {
     const promise = youtubedl(getVideoUrl(videoId), getDownloadAudioOptions());
-    const result = await progress(promise, `Downloading audio for video id ${videoId}`);
+    const result = await progress(promise, `Downloading video for id ${videoId}`);
     logger.info(result)
-    logger.info(`Downloaded audio for video id ${videoId}`);
+    logger.info(`Downloaded video for id ${videoId}`);
   } catch (err) {
     throw new Error(`Unable to download audio: ${err}`);
   }

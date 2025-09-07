@@ -31,34 +31,6 @@ const logger = getLogger();
 //   }
 // }
 
-async function main2(youtubeVideoId) {
-  console.log(`youtubeVideoId: ${youtubeVideoId}`);
-
-  // const youtubeVideoId = getYoutubeVideoId();
-
-  // const youtubeVideoInfo = await getVideoInfo(youtubeVideoId);
-  // const { title, description, uploadDate } = youtubeVideoInfo;
-  // logger.info(`title: ${title}`);
-  // logger.info(`description: ${description}`);
-  // logger.info(`Upload date: ${JSON.stringify(uploadDate)}`);
-
-  // if (env.LOAD_THUMBNAIL) {
-  //   await downloadThumbnail(youtubeVideoId);
-  // }
-  // await downloadAudio(youtubeVideoId);
-
-  const youtubeVideoInfoMock = {
-    title: 'Titulo teste',
-    description: 'Descrição de teste',
-    url: 'URL de teste',
-    uploadDate: { year: '2023', month: 'May', monthAsNumber: '05', monthAsFullWord: 'May', day: '27' },
-  };
-
-  logger.info('Posting episode to spotify');
-  // await postEpisode(youtubeVideoInfo);
-  await postEpisode(youtubeVideoInfoMock);
-}
-
 async function main(youtubeVideoId, browser) {
   // const youtubeVideoId = getYoutubeVideoId();
 
@@ -80,8 +52,8 @@ async function main(youtubeVideoId, browser) {
 configureLogger();
 
 function clusterizing(array, index) {
-  const init = index * 30;
-  const final = init + 30;
+  const init = index * 10;
+  const final = init + 10;
 
   return array.slice(init, final);
 }
@@ -456,13 +428,15 @@ const ids = [
   'KwFKDiIMljg',
 ];
 
+// const idsTests = ['kE8-8eGLteg'];
+
 const clusterIndex = 0;
 
 const videosArray = clusterizing(ids.reverse(), clusterIndex);
 
 async function processItemsSequentially(array) {
   const browser = await puppeteer.connect({
-    browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser/7171813c-1965-445c-b5e0-0926ab1609ac',
+    browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser/baf99d2f-a251-4e34-9821-2b8c28a8918e',
     ignoreHTTPSErrors: true,
     defaultViewport: null,
     headless: false,
