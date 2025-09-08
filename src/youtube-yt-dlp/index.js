@@ -7,12 +7,13 @@ const { getLogger } = require('../logger');
 
 const logger = getLogger();
 
-const CONNECTION_TIMEOUT_IN_MS = 30000;
+const CONNECTION_TIMEOUT_IN_MS = 300000;
 
 const youtubeDlOptions = {
   noCheckCertificates: true,
   noWarnings: true,
   preferFreeFormats: true,
+  cookies: 'cookies.txt',
 };
 
 function getVideoUrl(videoId) {

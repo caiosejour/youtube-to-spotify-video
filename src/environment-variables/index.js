@@ -7,7 +7,7 @@ const defaultValues = {
   SPOTIFY_LOGIN: true,
   SPOTIFY_EMAIL: '',
   SPOTIFY_PASSWORD: '',
-  UPLOAD_TIMEOUT: 60 * 5 * 1000,
+  UPLOAD_TIMEOUT: 60 * 10 * 1000,
   SAVE_AS_DRAFT: false,
   LOAD_THUMBNAIL: false,
   IS_EXPLICIT: false,
@@ -17,7 +17,7 @@ const defaultValues = {
   SET_PUBLISH_DATE: false,
   AUDIO_FILE_FORMAT: 'mp4',
   AUDIO_FILE_TEMPLATE: 'episode.%(ext)s',
-  THUMBNAIL_FILE_FORMAT: 'jpg',
+  THUMBNAIL_FILE_FORMAT: 'png',
   THUMBNAIL_FILE_TEMPLATE: 'thumbnail.%(ext)s',
   PUPPETEER_HEADLESS: true,
   // NOTE: The user agent should probably be updated regularly, for example when updating puppeteer version

@@ -86,17 +86,27 @@ async function postEpisode(youtubeVideoInfo, browser) {
     logger.info('Uploading audio file');
     await uploadEpisode();
 
+    await sleepSeconds(4);
+
     logger.info('Filling required podcast details');
     await fillDetails();
+
+    await sleepSeconds(4);
 
     logger.info('Going to Review and Publish step');
     await clickSelector(page, '::-p-xpath(//span[text()="Next"]/parent::button)');
 
+    await sleepSeconds(4);
+
     logger.info('Filling details in Review and Publish step');
     await fillReviewAndPublishDetails();
 
+    await sleepSeconds(4);
+
     logger.info('Save draft or publish');
     await saveDraftOrScheduleOrPublish();
+
+    await sleepSeconds(4);
 
     /*
     This is a workaround solution of the problem where the podcast
@@ -229,7 +239,7 @@ async function postEpisode(youtubeVideoInfo, browser) {
     while (currentClick < maxClicks) {
       const existsError = false;
       try {
-        await waitForText(page, 'Something went wrong', { timeout: 10 * 1000 });
+        await waitForText(page, 'Something went wrong', { timeout: 1000 * 1000 });
       } catch (e) {
         // ignore
       }
@@ -330,14 +340,16 @@ async function postEpisode(youtubeVideoInfo, browser) {
       const inputEpisodeArt = await page.$(imageUploadInputSelector);
       await inputEpisodeArt.uploadFile(env.THUMBNAIL_FILE);
 
-      logger.info('-- Saving uploaded episode art');
-      await clickSelector(page, '::-p-xpath(//span[text()="Save"]/parent::button)');
+      // logger.info('-- Saving uploaded episode art');
+      // await clickSelector(page, '::-p-xpath(//span[text()="Save"]/parent::button)');
 
       logger.info('-- Waiting for uploaded episode art to be saved');
       await page.waitForSelector('::-p-xpath(//div[@data-encore-id="dialogConfirmation"])', {
         hidden: true,
         timeout: env.UPLOAD_TIMEOUT,
       });
+
+      sleepSeconds(4);
     }
 
     logger.info('-- Selecting content type(explicit or no explicit)');
